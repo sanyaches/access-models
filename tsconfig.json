@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "lib": [
+      "esnext",
+      "esnext.asynciterable",
+      "dom"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "~/*": [
+        "./*"
+      ]
+    },
+    "removeComments": true,
+    "strictNullChecks": true,
+    "target": "esnext",
+    "types": [
+      "@types/node",
+      "@types/webpack",
+      "@nuxt/types",
+      "@nuxtjs/axios",
+      "vue-i18n"
+    ],
+    "strict": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "noEmit": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true
+  },
+}

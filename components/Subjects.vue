@@ -11,14 +11,10 @@
 <script>
   export default {
     name: "Subjects",
-    props: ['username'],
+    props: ['username', 'subjects'],
     data() {
       return {
-        subjects: [
-          'Subject1',
-          'Subject2',
-          'Subject3'
-        ],
+
       }
     }
   }

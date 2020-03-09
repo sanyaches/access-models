@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <Matrix :username="username"/>
+    <Matrix :username="username" :subjects="subjects"/>
 
     <b-form @submit.prevent="onSubmit" @reset.prevent="onReset" v-if="show">
       <b-form-group
@@ -21,7 +21,7 @@
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
 
-    <Subjects :username="username"/>
+    <Subjects :username="username" :subjects="subjects"/>
   </b-container>
 </template>
 
@@ -41,6 +41,11 @@
         form: {
           username: '',
         },
+        subjects: [
+          'Subject1',
+          'Subject2',
+          'Subject3'
+        ],
         show: true
       }
     },
