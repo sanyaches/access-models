@@ -5,7 +5,7 @@
       <tr>
         <th/>
         <th
-          v-for="(subject, index) in subjects"
+          v-for="(subject, index) in getSubjects"
           :key="index"
         >
           {{ subject }}
@@ -13,7 +13,7 @@
       </tr>
 
       <tr
-        v-for="(user, userIndex) in users"
+        v-for="(user, userIndex) in getUsers"
         :key="userIndex"
       >
         <td><h4>{{ user.username }}</h4></td>
@@ -45,16 +45,17 @@
 
   })
   export default class Matrix extends Vue {
-    @discretionStore.Getter private users;
+    @discretionStore.Getter private getUsers;
+    @discretionStore.Getter private getSubjects;
     @discretionStore.Mutation private updateRight;
     @Prop() username;
     @Prop() subjects;
 
     private changeRight (event, userIndex, indexRight) {
       let newRight = event.target.innerText;
-      this.updateRight({event, userIndex, indexRight});
+      this.updateRight({newRight, userIndex, indexRight});
 
-      console.log(`Change right for ${this.users[userIndex].username}-Subject${indexRight+1} : ${newRight}`);
+      console.log(`Change right for ${this.getUsers[userIndex].username}-Subject${indexRight+1} : ${newRight}`);
     }
   }
 </script>

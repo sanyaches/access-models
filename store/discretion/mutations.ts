@@ -6,7 +6,11 @@ const mutations = {
   }) {
     const { newRight, userIndex, indexRight } = payload;
 
-    this.users[userIndex].rights[indexRight] = newRight;
+    state.users[userIndex].rights[indexRight] = newRight;
+  },
+
+  setCurrentUser (state, user: string) {
+    state.currentUser = user
   }
 };
 
