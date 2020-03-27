@@ -1,8 +1,28 @@
 <template>
   <b-container>
-    <Matrix :username="username"/>
+    <div class="d-flex justify-content-center mb-4">
+      <b-button
+        @click="setShowLoginForm(true)"
+        v-if="!getCurrentUser && !getShowLoginForm"
+        variant="primary"
+        class="btn-lg"
+      >
+        Login
+      </b-button>
+      <b-button
+        @click="exit"
+        v-if="getCurrentUser"
+        variant="danger"
+        class="btn-lg"
+      >
+        Exit
+      </b-button>
+    </div>
 
-    <b-form @submit.prevent="onSubmit" @reset.prevent="onReset" v-if="show">
+
+    <Matrix v-if="getShowEditMatrix && isAdmin" />
+
+    <b-form @submit.prevent="onSubmit" @reset.prevent="exitForm" v-if="getShowLoginForm">
       <b-form-group
         id="input-group-1"
         label="Login:"
@@ -21,7 +41,7 @@
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
 
-    <Subjects :username="username"/>
+    <Subjects v-if="getShowSubjectAccess" />
   </b-container>
 </template>
 
@@ -44,28 +64,44 @@
     },
   })
   export default class DiscretionaryPage extends Vue {
-    private username = '';
+    @discretionStore.Mutation private setCurrentUser;
+    @discretionStore.Mutation private setShowLoginForm;
+    @discretionStore.Mutation private setShowEditMatrix;
+    @discretionStore.Mutation private setShowSubjectAccess;
+    //todo: move to action
+    @discretionStore.Mutation private exit;
+
+    @discretionStore.Getter private getCurrentUser;
+    @discretionStore.Getter private getShowLoginForm;
+    @discretionStore.Getter private getShowEditMatrix;
+    @discretionStore.Getter private getShowSubjectAccess;
+    @discretionStore.Getter private isAdmin;
 
     private form = {
       username: ''
     };
 
-    private show = true;
-
-
     private onSubmit() {
-      // alert(JSON.stringify(this.form))
-      this.username = this.form.username;
+      this.setCurrentUser(this.form.username);
+      this.setShowLoginForm(false);
+      this.clearForm();
+
+      if (this.isAdmin) {
+        this.setShowEditMatrix(true);
+      }
+      else {
+        this.setShowSubjectAccess(true)
+      }
     };
-    private onReset() {
+
+    private clearForm() {
       // Reset our form values
       this.form.username = '';
-      this.username = '';
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
+    }
+
+    private exitForm() {
+      this.clearForm();
+      this.exit();
     };
   }
 </script>

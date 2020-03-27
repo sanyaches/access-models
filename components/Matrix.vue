@@ -1,5 +1,5 @@
 <template>
-  <div class="matrix" v-if="username === 'admin'">
+  <div class="matrix">
     <h1>Discretionary matrix to edit</h1>
     <table>
       <tr>
@@ -48,7 +48,6 @@
     @discretionStore.Getter private getUsers;
     @discretionStore.Getter private getSubjects;
     @discretionStore.Mutation private updateRight;
-    @Prop() username;
     @Prop() subjects;
 
     private changeRight (event, userIndex, indexRight) {

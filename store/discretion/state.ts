@@ -3,9 +3,9 @@ const state = () => ({
     {
       username: 'vasya',
       rights: [
-        '777',
-        '777',
-        '777',
+        '111',
+        '011',
+        '101',
       ]
     }
   ],
@@ -15,6 +15,9 @@ const state = () => ({
     'Subject3'
   ],
   currentUser: '',
+  showLoginForm: false,
+  showEditMatrix: false,
+  showSubjectAccess: false,
 });
 
 export default state;
