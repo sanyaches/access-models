@@ -2,8 +2,8 @@ const getters = {
   getUsers(state) {
     return state.users
   },
-  getUserRights(state) {
-    return state.users.filter( user => user.username === state.currentUser )[0].rights
+  getUserData(state) {
+    return state.users.filter( user => user.username === state.currentUser )[0]
   },
   getSubjects(state) {
     return state.subjects

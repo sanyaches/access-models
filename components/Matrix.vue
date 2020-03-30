@@ -1,7 +1,7 @@
 <template>
   <div class="matrix">
-    <h1>Discretionary matrix to edit</h1>
-    <table>
+    <h3 class="mb-4">Discretionary matrix to edit</h3>
+    <table class="table">
       <tr>
         <th/>
         <th

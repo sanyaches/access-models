@@ -1,4 +1,5 @@
 const state = () => ({
+  model: 'matrix',
   users: [
     {
       username: 'vasya',

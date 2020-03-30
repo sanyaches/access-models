@@ -1,71 +1,112 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        security-models
-      </h1>
-      <h2 class="subtitle">
-        models
-      </h2>
-      <div class="links">
-        <n-link
-          class="button--green"
-          :to="'discretionary'"
-        >
-          Discretionary
-        </n-link>
-        <a
-          href="https://github.com/sanyaches/access-models"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+  <b-container>
+    <div class="d-flex justify-content-center mb-4">
+      <b-button
+        @click="setShowLoginForm(true)"
+        v-if="!getCurrentUser && !getShowLoginForm"
+        variant="primary"
+        class="btn-lg"
+      >
+        Login
+      </b-button>
+      <b-button
+        @click="exit"
+        v-if="getCurrentUser"
+        variant="danger"
+        class="btn-lg"
+      >
+        Exit
+      </b-button>
     </div>
-  </div>
+
+    <h1 class="text-lg-center text-monospace mb-5"> Discretionary security models </h1>
+
+    <Matrix v-if="getShowEditMatrix && isAdmin" />
+
+    <b-form @submit.prevent="onSubmit" @reset.prevent="exitForm" v-if="getShowLoginForm">
+      <b-form-group
+        id="input-group-1"
+        label="Login:"
+        label-for="input-1"
+        description="Write your login here."
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.username"
+          required
+          placeholder="Enter login"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-button type="submit" variant="primary">Sign in</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
+    </b-form>
+
+    <Subjects v-if="getShowSubjectAccess" />
+  </b-container>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
+<script lang="ts">
+  import Matrix from "../components/Matrix.vue";
+  import Subjects from "../components/Subjects.vue";
+  import {
+    Vue,
+    Component,
+    Prop
+  } from 'nuxt-property-decorator'
+  import { namespace } from 'vuex-class';
 
-export default {
-  components: {
-    Logo
+  const discretionStore = namespace('discretion');
+
+  @Component({
+    components: {
+      Subjects,
+      Matrix
+    },
+  })
+  export default class DiscretionaryPage extends Vue {
+    @discretionStore.Mutation private setCurrentUser;
+    @discretionStore.Mutation private setShowLoginForm;
+    @discretionStore.Mutation private setShowEditMatrix;
+    @discretionStore.Mutation private setShowSubjectAccess;
+    //todo: move to action
+    @discretionStore.Mutation private exit;
+
+    @discretionStore.Getter private getCurrentUser;
+    @discretionStore.Getter private getShowLoginForm;
+    @discretionStore.Getter private getShowEditMatrix;
+    @discretionStore.Getter private getShowSubjectAccess;
+    @discretionStore.Getter private isAdmin;
+
+    private form = {
+      username: ''
+    };
+
+    private onSubmit() {
+      this.setCurrentUser(this.form.username);
+      this.setShowLoginForm(false);
+      this.clearForm();
+
+      if (this.isAdmin) {
+        this.setShowEditMatrix(true);
+      }
+      else {
+        this.setShowSubjectAccess(true)
+      }
+    };
+
+    private clearForm() {
+      // Reset our form values
+      this.form.username = '';
+    }
+
+    private exitForm() {
+      this.clearForm();
+      this.exit();
+    };
   }
-}
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style scoped>
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>
