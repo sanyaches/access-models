@@ -1,22 +1,22 @@
 <template>
-    <div class="subjects pt-4">
+    <div class="objects pt-4">
       <h3>Hello, {{ getCurrentUser }}</h3>
       <table class="table">
         <tr>
-          <th>Subject</th>
+          <th>Object</th>
           <th>Read</th>
           <th>Write</th>
           <th>Edit</th>
         </tr>
-        <tr v-for="(subject, index) in getSubjects" :key="index">
-          <td>{{ subject }}</td>
+        <tr v-for="(object, index) in getObjects" :key="index">
+          <td>{{ object }}</td>
           <td>
             <div
               class="btn btn-lg btn-outline-primary"
               :class="getUserData.rights[index][0] === '1' ? 'btn-outline-success' : 'btn-outline-danger'"
               @click="hyperVise({
                 action: 'read',
-                subjectIndex: index
+                objectIndex: index
               })"
             >
               Read
@@ -28,7 +28,7 @@
               :class="getUserData.rights[index][1] === '1' ? 'btn-outline-success' : 'btn-outline-danger'"
               @click="hyperVise({
                 action: 'write',
-                subjectIndex: index
+                objectIndex: index
               })"
             >
               Write
@@ -40,7 +40,7 @@
               :class="getUserData.rights[index][2] === '1' ? 'btn-outline-success' : 'btn-outline-danger'"
               @click="hyperVise({
                 action: 'edit',
-                subjectIndex: index
+                objectIndex: index
               })"
             >
               Edit
@@ -60,8 +60,8 @@
   @Component({
 
   })
-  export default class Subjects extends Vue{
-    @discretionStore.Getter private getSubjects;
+  export default class Objects extends Vue{
+    @discretionStore.Getter private getObjects;
     @discretionStore.Getter private getCurrentUser;
     @discretionStore.Getter private getUserData;
 

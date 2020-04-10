@@ -1,5 +1,13 @@
 <template>
   <b-container>
+    <div class="mb-2">Select model:</div>
+    <b-select
+      class="mb-4"
+      name="model"
+      :options="getModels"
+      :value="getCurrentModel"
+      @input="setModel($event)"
+    />
     <div class="d-flex justify-content-center mb-4">
       <b-button
         @click="setShowLoginForm(true)"
@@ -19,7 +27,7 @@
       </b-button>
     </div>
 
-    <h1 class="text-lg-center text-monospace mb-5"> Discretionary security models </h1>
+    <h1 class="text-lg-center text-monospace mb-5"> Discretionary security models: <strong>{{ getCurrentModel }}</strong> </h1>
 
     <Matrix v-if="getShowEditMatrix && isAdmin" />
 
@@ -42,13 +50,13 @@
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
 
-    <Subjects v-if="getShowSubjectAccess" />
+    <Objects v-if="getShowObjectAccess" />
   </b-container>
 </template>
 
 <script lang="ts">
   import Matrix from "../components/Matrix.vue";
-  import Subjects from "../components/Subjects.vue";
+  import Objects from "../components/Objects.vue";
   import {
     Vue,
     Component,
@@ -60,7 +68,7 @@
 
   @Component({
     components: {
-      Subjects,
+      Objects,
       Matrix
     },
   })
@@ -68,15 +76,18 @@
     @discretionStore.Mutation private setCurrentUser;
     @discretionStore.Mutation private setShowLoginForm;
     @discretionStore.Mutation private setShowEditMatrix;
-    @discretionStore.Mutation private setShowSubjectAccess;
-    //todo: move to action
+    @discretionStore.Mutation private setShowObjectAccess;
+    @discretionStore.Mutation private setModel;
+    // todo: move to actions
     @discretionStore.Mutation private exit;
 
     @discretionStore.Getter private getCurrentUser;
     @discretionStore.Getter private getShowLoginForm;
     @discretionStore.Getter private getShowEditMatrix;
-    @discretionStore.Getter private getShowSubjectAccess;
+    @discretionStore.Getter private getShowObjectAccess;
     @discretionStore.Getter private isAdmin;
+    @discretionStore.Getter private getCurrentModel;
+    @discretionStore.Getter private getModels;
 
     private form = {
       username: ''
@@ -91,7 +102,7 @@
         this.setShowEditMatrix(true);
       }
       else {
-        this.setShowSubjectAccess(true)
+        this.setShowObjectAccess(true)
       }
     };
 

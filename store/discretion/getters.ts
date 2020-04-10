@@ -5,8 +5,8 @@ const getters = {
   getUserData(state) {
     return state.users.filter( user => user.username === state.currentUser )[0]
   },
-  getSubjects(state) {
-    return state.subjects
+  getObjects(state) {
+    return state.objects
   },
   getCurrentUser(state) {
     return state.currentUser
@@ -17,11 +17,17 @@ const getters = {
   getShowEditMatrix(state) {
     return state.showEditMatrix
   },
-  getShowSubjectAccess(state) {
-    return state.showSubjectAccess
+  getShowObjectAccess(state) {
+    return state.showObjectAccess
   },
   isAdmin(state) {
     return state.currentUser === 'admin'
+  },
+  getModels(state) {
+    return state.models;
+  },
+  getCurrentModel(state) {
+    return state.model;
   }
 };
 

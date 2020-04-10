@@ -1,4 +1,9 @@
 const state = () => ({
+  models: [
+    'matrix',
+    'HRU',
+    'Hartson'
+  ],
   model: 'matrix',
   users: [
     {
@@ -7,18 +12,27 @@ const state = () => ({
         '111',
         '011',
         '101',
+      ],
+      hru: [
+        '110110',
+        '000110',
+        '000110'
       ]
     }
   ],
-  subjects: [
-    'Subject1',
-    'Subject2',
-    'Subject3'
+  objects: [
+    'Object1',
+    'Object2',
+    'Object3'
   ],
+  HruRights: [
+
+  ],
+
   currentUser: '',
   showLoginForm: false,
   showEditMatrix: false,
-  showSubjectAccess: false,
+  showObjectAccess: false,
 });
 
 export default state;

@@ -17,17 +17,20 @@ const mutations = {
   },
   setShowEditMatrix(state, show: boolean) {
     state.showEditMatrix = show;
-    if (show) state.showSubjectAccess = !show;
+    if (show) state.showObjectAccess = !show;
   },
-  setShowSubjectAccess(state, show: boolean) {
-    state.showSubjectAccess = show;
+  setShowObjectAccess(state, show: boolean) {
+    state.showObjectAccess = show;
     if (show) state.showEditMatrix = !show;
   },
   exit(state) {
     state.currentUser = '';
     state.showLoginForm = false;
     state.showEditMatrix = false;
-    state.showSubjectAccess = false;
+    state.showObjectAccess = false;
+  },
+  setModel(state, value) {
+    state.model = value;
   }
 
 };
