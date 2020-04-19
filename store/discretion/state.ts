@@ -4,6 +4,7 @@ const state = () => ({
     'HRU',
     'Hartson'
   ],
+  auth: false,
   model: 'matrix',
   users: [
     {
@@ -17,6 +18,23 @@ const state = () => ({
         '110110',
         '000110',
         '000110'
+      ],
+      abilities: [
+        'users',
+        'authors'
+      ]
+    },
+    {
+      username: 'admin',
+      rights: [
+        '111',
+        '111',
+        '111',
+      ],
+      hru: [
+        '111111',
+        '111111',
+        '111111'
       ]
     }
   ],
@@ -24,6 +42,29 @@ const state = () => ({
     'Object1',
     'Object2',
     'Object3'
+  ],
+  groupsAbilities: [
+    {
+      name: 'users',
+      rights: [
+        'read'
+      ]
+    },
+    {
+      name: 'authors',
+      rights: [
+        'read',
+        'write'
+      ]
+    },
+    {
+      name: 'admins',
+      rights: [
+        'read',
+        'write',
+        'edit'
+      ]
+    },
   ],
   HruRights: [
 

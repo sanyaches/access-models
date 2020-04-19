@@ -3,10 +3,29 @@ const mutations = {
     newRight: string,
     userIndex: number,
     indexRight: number,
+    hru: boolean
   }) {
-    const { newRight, userIndex, indexRight } = payload;
+    const { newRight, userIndex, indexRight, hru } = payload;
+    const { newR, oldR } = {
+      newR: newRight,
+      oldR: state.users[userIndex].hru[indexRight]
+    };
 
-    state.users[userIndex].rights[indexRight] = newRight;
+    if (hru) {
+      if (state.currentUser == 'admin') { state.users[userIndex].hru[indexRight] = newRight; return; }
+
+      if ( ((newR.length > oldR.length) && (oldR[0] == '1')) || ((newR.length < oldR.length) && (oldR[1] == '1')) ) {
+        state.users[userIndex].hru[indexRight] = newRight;
+      } else {
+        console.error('Error edit hru right')
+      }
+    } else {
+      state.users[userIndex].rights[indexRight] = newRight;
+    }
+  },
+
+  login (state) {
+    state.auth = true
   },
 
   setCurrentUser (state, user: string) {
@@ -28,6 +47,7 @@ const mutations = {
     state.showLoginForm = false;
     state.showEditMatrix = false;
     state.showObjectAccess = false;
+    state.auth = false
   },
   setModel(state, value) {
     state.model = value;

@@ -24,9 +24,7 @@
     "types": [
       "@types/node",
       "@types/webpack",
-      "@nuxt/types",
-      "@nuxtjs/axios",
-      "vue-i18n"
+      "@nuxt/types"
     ],
     "strict": false,
     "noImplicitAny": false,
@@ -34,5 +32,5 @@
     "noEmit": true,
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true
-  },
+  }
 }

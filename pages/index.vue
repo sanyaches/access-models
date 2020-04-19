@@ -29,7 +29,7 @@
 
     <h1 class="text-lg-center text-monospace mb-5"> Discretionary security models: <strong>{{ getCurrentModel }}</strong> </h1>
 
-    <Matrix v-if="getShowEditMatrix && isAdmin" />
+    <Matrix v-if="isAuth && isAdmin || isAuth && isHru" />
 
     <b-form @submit.prevent="onSubmit" @reset.prevent="exitForm" v-if="getShowLoginForm">
       <b-form-group
@@ -86,6 +86,8 @@
     @discretionStore.Getter private getShowEditMatrix;
     @discretionStore.Getter private getShowObjectAccess;
     @discretionStore.Getter private isAdmin;
+    @discretionStore.Getter private isAuth;
+    @discretionStore.Getter private isHru;
     @discretionStore.Getter private getCurrentModel;
     @discretionStore.Getter private getModels;
 

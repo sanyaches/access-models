@@ -23,6 +23,12 @@ const getters = {
   isAdmin(state) {
     return state.currentUser === 'admin'
   },
+  isHru(state) {
+    return state.model === 'HRU'
+  },
+  isAuth(state) {
+    return state.currentUser !== ''
+  },
   getModels(state) {
     return state.models;
   },
